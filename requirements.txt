@@ -4,3 +4,4 @@ pandas
 gspread
 sreamlit_gsheets
 datetime
+st-gsheets-connection
