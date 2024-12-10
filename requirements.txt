@@ -2,4 +2,3 @@ streamlit
 pandas
 datetime
 mysql-connector-python
-os
