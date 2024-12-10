@@ -3,3 +3,5 @@ pandas
 gspread
 datetime
 st-gsheets-connection
+mysql-connector-python
+os
