@@ -155,6 +155,11 @@ def tampilkan_gambar_produk(makanan):
     else:
         st.warning("Produk tidak ditemukan dalam daftar harga.")
 
+def get_produk_id_by_nama(nama_produk):
+    query = "SELECT produk_id FROM indrimart_produk WHERE nama = %s"
+    result = fetch_data(query, (nama_produk,))
+    return result[0]['produk_id'] if result else None
+
 # Logo
 col1, col2, col3 = st.columns([1, 6, 1])
 with col2:
@@ -272,9 +277,12 @@ if st.session_state.username and st.session_state.password:
                         with col2:
                             # Tambah data
                             if st.button("➕ Tambah"):
-                                produk_id = list(harga_makanan.keys()).index(makanan) + 2
-                                add_transaksi(user_id, produk_id, formatted_tanggal, jumlah, total_harga, is_paid=False)
-                                st.success("Berhasil ditambahkan")
+                                produk_id = get_produk_id_by_nama(makanan)
+                                if produk_id:
+                                    add_transaksi(user_id, produk_id, formatted_tanggal, jumlah, total_harga, is_paid=False)
+                                    st.success("Berhasil ditambahkan")
+                                else:
+                                    st.error("Produk tidak ditemukan di database.")
                             
                     # List belanjaan
                     st.subheader("🛍️ Keranjang")
