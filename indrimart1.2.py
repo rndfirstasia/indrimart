@@ -186,10 +186,14 @@ def modal_ubah_password(user_id, username):
             st.session_state["show_change_password"] = False  # sembunyikan dialog kalau sudah selesai
             st.rerun()
 
+if "user_id" not in st.session_state:
+    st.session_state.user_id= None
 if "username" not in st.session_state:
     st.session_state.username = ""
 if "password" not in st.session_state:
     st.session_state.password = ""
+if "temp_user_id" not in st.session_state:
+    st.session_state.temp_user_id = None
 if "temp_username" not in st.session_state:
     st.session_state.temp_username = ""
 if "temp_password" not in st.session_state:
