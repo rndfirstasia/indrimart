@@ -183,7 +183,7 @@ def modal_ubah_password(user_id, username):
         else:
             ubah_password(user_id, password_baru)
             st.success("Password berhasil diubah!")
-            st.session_state["show_change_password"] = False # sembunyikan dialog kalau dah slese
+            st.session_state["show_change_password"] = False  # sembunyikan dialog kalau sudah selesai
             st.rerun()
 
 if "username" not in st.session_state:
@@ -208,6 +208,7 @@ if not st.session_state.username and not st.session_state.password:
     if st.session_state.temp_username and st.session_state.temp_password:
         user = validasi_login(st.session_state.temp_username, st.session_state.temp_password)
         if user:
+            st.session_state.user_id = user['user_id'] 
             st.session_state.username = st.session_state.temp_username
             st.session_state.password = st.session_state.temp_password
             st.rerun() 
