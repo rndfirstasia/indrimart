@@ -145,13 +145,17 @@ def tampilkan_gambar_produk(makanan):
     product_info = harga_makanan.get(makanan)
     
     if product_info:
-        price, image_file = product_info
-        image_path = os.path.join("img", image_file)
-        
-        if os.path.exists(image_path):
-            st.image(image_path, use_container_width=True)
+        # Periksa apakah product_info berisi dua elemen
+        if len(product_info) == 2:
+            price, image_file = product_info
+            image_path = os.path.join("img", image_file)
+            
+            if os.path.exists(image_path):
+                st.image(image_path, use_container_width=True)
+            else:
+                st.warning("Gambar produk tidak tersedia.")
         else:
-            st.warning("Gambar produk tidak tersedia.")
+            st.error("Data produk tidak lengkap.")
     else:
         st.warning("Produk tidak ditemukan dalam daftar harga.")
 
@@ -159,6 +163,7 @@ def get_produk_id_by_nama(nama_produk):
     query = "SELECT produk_id FROM indrimart_produk WHERE nama = %s"
     result = fetch_data(query, (nama_produk,))
     return result[0]['produk_id'] if result else None
+
 
 # Logo
 col1, col2, col3 = st.columns([1, 6, 1])
@@ -225,7 +230,7 @@ else:
         st.session_state.show_change_password = True
 
     if st.session_state.show_change_password:
-        modal_ubah_password(user_id=1, username=st.session_state.username) 
+        modal_ubah_password(user_id=st.session_state.user_id, username=st.session_state.username)
 
 # Tab layout
 tab3, tab1, tab2  = st.tabs(["Daftar Harga", "Belanja", "Riwayat Belanja"])
