@@ -272,7 +272,7 @@ if st.session_state.username and st.session_state.password:
                         with col2:
                             # Tambah data
                             if st.button("➕ Tambah"):
-                                produk_id = list(harga_makanan.keys()).index(makanan) + 1
+                                produk_id = list(harga_makanan.keys()).index(makanan) + 2
                                 add_transaksi(user_id, produk_id, formatted_tanggal, jumlah, total_harga, is_paid=False)
                                 st.success("Berhasil ditambahkan")
                             
